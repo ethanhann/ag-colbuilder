@@ -1,6 +1,7 @@
 {
   "name": "ag-colbuilder",
   "module": "src/index.ts",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "test": "vitest run",
