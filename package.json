@@ -2,8 +2,15 @@
   "name": "ag-colbuilder",
   "module": "src/index.ts",
   "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@types/node": "^24.10.1",
+    "expect-type": "^1.2.2",
+    "vitest": "^4.0.14"
   },
   "peerDependencies": {
     "typescript": "^5.9.3"
