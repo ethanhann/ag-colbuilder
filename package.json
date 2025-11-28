@@ -1,0 +1,14 @@
+{
+  "name": "ag-colbuilder",
+  "module": "src/index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "ag-grid-community": "^34.3.1"
+  }
+}
