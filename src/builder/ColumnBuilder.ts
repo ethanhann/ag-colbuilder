@@ -13,7 +13,7 @@ import {normalizeColDef} from './normalizeColDef';
  *
  * @template T Represents the type of the data to be rendered in the columns.
  */
-export class ColumnBuilderImpl<T> implements IColumnBuilder<T> {
+export class ColumnBuilder<T> implements IColumnBuilder<T> {
     private cols: ColDef<T>[] = [];
 
     private pushColumn<K extends keyof T & string>(field: K, preset: BasePreset, opts?: Partial<LooseColDef<T>>) {
