@@ -241,7 +241,7 @@ export function UserGrid({ rows }: { rows: User[] }) {
 
 Planned enhancements include:
 
-- Additional presets for boolean, enum, currency, and status columns
+- Additional presets for enum, currency, and status columns
 - Column group builder support
 - Utilities for React cell renderers
 - Optional support for nested field paths such as `"address.city"`
