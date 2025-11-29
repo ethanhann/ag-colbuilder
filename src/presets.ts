@@ -26,7 +26,7 @@ export const datePreset: BasePreset = {
     resizable: true,
 };
 
-export const booleanPreset: BasePreset = {
+export const setPreset: BasePreset = {
     sortable: true,
     filter: 'agSetColumnFilter',
     cellDataType: 'boolean',

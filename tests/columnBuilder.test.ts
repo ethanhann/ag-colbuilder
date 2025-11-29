@@ -1,12 +1,24 @@
 import {describe, it, expect, beforeEach} from 'vitest';
 import {col, setGlobalDefaults, resetGlobalDefaults, getGlobalDefaults} from '../src';
-import type {ColDef} from 'ag-grid-community';
+import type {ColDef, ValueFormatterParams} from 'ag-grid-community';
+
+interface Address {
+    country: string;
+}
+
+enum State {
+    ACTIVE = 'active',
+    INACTIVE = 'inactive',
+}
 
 interface Sample {
     id: number;
     name: string;
-    created_at: string;
+    createdAt: string;
     count: number;
+    address: Address;
+    cost: number;
+    state: State;
 }
 
 describe('ColumnBuilder', () => {
@@ -21,14 +33,37 @@ describe('ColumnBuilder', () => {
 
         // Act
         const result = builder.build();
-        const c = result[0] as ColDef<Sample>;
+        const column = result[0] as ColDef<Sample>;
 
         // Assert
         expect(result.length).toBe(1);
-        expect(c.field).toBe('name');
-        expect(c.headerName).toBe('Name');
-        expect(c.filter).toBe('agTextColumnFilter');
+        expect(column.field).toBe('name');
+        expect(column.headerName).toBe('Name');
+        expect(column.filter).toBe('agTextColumnFilter');
     });
+
+    it('supports enum preset', () => {
+        // Arrange
+        const params = {value: State.ACTIVE} as ValueFormatterParams;
+        const expected = 'Active';
+        const builder = col<Sample>().set('state', {
+            map: {
+                [State.ACTIVE]: 'Active',
+                [State.INACTIVE]: 'Inactive',
+            },
+        });
+
+        // Act
+        const result = builder.build();
+        const column = result[0];
+        // Assert
+        expect(column?.filter).toBe('agSetColumnFilter');
+        if (typeof (column?.valueFormatter) !== 'function') throw new Error(
+            'valueFormatter must be a function to test currency preset'
+        )
+        expect(column?.valueFormatter(params)).toBe(expected);
+    });
+
 
     it('supports number preset', () => {
         // Arrange
@@ -43,9 +78,60 @@ describe('ColumnBuilder', () => {
         expect(column?.type).toBe('numericColumn');
     });
 
+    it('supports currency preset', () => {
+        // Arrange
+        const builder = col<Sample>().currency('cost');
+
+        // Act
+        const result = builder.build();
+        const column = result[0];
+
+        // Assert
+        expect(column?.filter).toBe('agNumberColumnFilter');
+        expect(column?.type).toBe('numericColumn');
+    });
+
+    it('supports currency preset in USD', () => {
+        // Arrange
+        const params = {value: 10} as ValueFormatterParams;
+        const expected = '$10.00';
+        const builder = col<Sample>().currency('cost');
+
+        // Act
+        const result = builder.build();
+        const column = result[0];
+
+        // Assert
+        expect(column?.filter).toBe('agNumberColumnFilter');
+        expect(column?.type).toBe('numericColumn');
+        if (typeof (column?.valueFormatter) !== 'function') throw new Error(
+            'valueFormatter must be a function to test currency preset'
+        )
+        expect(column?.valueFormatter(params)).toBe(expected);
+    });
+
+    it('supports currency preset in JPY', () => {
+        // Arrange
+        const params = {value: 10} as ValueFormatterParams;
+        const expected = '¥10.00';
+        const builder = col<Sample>().currency('cost', {currency: 'JPY'});
+
+        // Act
+        const result = builder.build();
+        const column = result[0];
+
+        // Assert
+        expect(column?.filter).toBe('agNumberColumnFilter');
+        expect(column?.type).toBe('numericColumn');
+        if (typeof (column?.valueFormatter) !== 'function') throw new Error(
+            'valueFormatter must be a function to test currency preset'
+        )
+        expect(column?.valueFormatter(params)).toBe(expected);
+    });
+
     it('supports date preset', () => {
         // Arrange
-        const builder = col<Sample>().date('created_at');
+        const builder = col<Sample>().date('createdAt');
 
         // Act
         const result = builder.build();
@@ -104,6 +190,17 @@ describe('ColumnBuilder', () => {
 
         // Assert
         expect(result[0]?.field).toBe('name');
+    });
+
+    it('supports compound field names', () => {
+        // Arrange
+        const builder = col<Sample>().custom({field: 'address.country'});
+
+        // Act
+        const result = builder.build();
+
+        // Assert
+        expect(result[0]?.field).toBe('address.country');
     });
 
     it('throws when field name is invalid', () => {

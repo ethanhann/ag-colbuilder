@@ -1,8 +1,8 @@
 import type {ColDef, ColDefField} from 'ag-grid-community';
 import {getGlobalDefaults} from '../globalDefaults';
 import {humanize} from '../humanize';
-import {type BasePreset, booleanPreset, datePreset, numberPreset, textPreset} from '../presets';
-import type {ColumnBuilder, ColumnOptions} from '../types';
+import {type BasePreset, datePreset, numberPreset, setPreset, textPreset} from '../presets';
+import type {ColumnOptions, CurrencyCode, IColumnBuilder, StringUnion, ValueMap} from '../types';
 import type {LooseColDef} from './LooseColDef';
 import {normalizeColDef} from './normalizeColDef';
 
@@ -13,7 +13,7 @@ import {normalizeColDef} from './normalizeColDef';
  *
  * @template T Represents the type of the data to be rendered in the columns.
  */
-export class ColumnBuilderImpl<T> implements ColumnBuilder<T> {
+export class ColumnBuilderImpl<T> implements IColumnBuilder<T> {
     private cols: ColDef<T>[] = [];
 
     private pushColumn<K extends keyof T & string>(field: K, preset: BasePreset, opts?: Partial<LooseColDef<T>>) {
@@ -49,7 +49,47 @@ export class ColumnBuilderImpl<T> implements ColumnBuilder<T> {
     }
 
     boolean<K extends keyof T & string>(field: K, opts?: ColumnOptions<T>) {
-        this.pushColumn(field, booleanPreset, opts);
+        this.pushColumn(field, setPreset, opts);
+        return this;
+    }
+
+    set<K extends keyof T & string>(
+        field: K,
+        opts: {
+            map: ValueMap<T[K]>;
+        } & ColumnOptions<T>,
+    ) {
+        this.pushColumn(field, setPreset, {
+            valueFormatter: (params) => {
+                const v = params.value as StringUnion<T[K]>;
+                return opts.map[v];
+            },
+            ...opts,
+        });
+        return this;
+    }
+
+    currency<K extends keyof T & string>(
+        field: K,
+        opts: {
+            currency?: CurrencyCode;
+            minimumFractionDigits?: number;
+            maximumFractionDigits?: number;
+        } & ColumnOptions<T> = {},
+    ) {
+        const {currency = 'USD', minimumFractionDigits = 2, maximumFractionDigits = 2, ...rest} = opts;
+
+        this.pushColumn(field, numberPreset, {
+            valueFormatter: (params) =>
+                new Intl.NumberFormat(undefined, {
+                    style: 'currency',
+                    currency,
+                    minimumFractionDigits,
+                    maximumFractionDigits,
+                }).format(params.value ?? 0),
+            ...rest,
+        });
+
         return this;
     }
 
