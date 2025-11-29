@@ -44,6 +44,6 @@
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
-    "ag-grid-community": ">=34.0.0",
+    "ag-grid-community": ">=34.0.0"
   }
 }
