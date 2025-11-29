@@ -74,7 +74,7 @@ const columns = col<User>()
 
 The result is a fully typed `ColDef<User>[]` array that you can pass directly to AG Grid.
 
-```ts
+```tsx
 import { AgGridReact } from "ag-grid-react";
 
 <AgGridReact<User> rowData={rows} columnDefs={columns} />;
