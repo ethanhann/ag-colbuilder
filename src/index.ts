@@ -1,4 +1,4 @@
-import {ColumnBuilderImpl} from './builder/ColumnBuilderImpl';
+import {ColumnBuilder} from './builder/ColumnBuilder';
 
 export * from './globalDefaults';
 export * from './types';
@@ -13,7 +13,7 @@ export * from './types';
  *   .number('age')
  *   .build();
  */
-export const col = <T>() => new ColumnBuilderImpl<T>();
+export const col = <T>() => new ColumnBuilder<T>();
 
 /**
  * Converts a string to a human-readable format.
