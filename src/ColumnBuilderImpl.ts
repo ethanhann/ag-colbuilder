@@ -1,19 +1,15 @@
 import type {ColDef} from 'ag-grid-community';
-import type {ColumnBuilder, ColumnOptions} from './types';
-import {humanize} from './humanize';
+import {defaultDatePreset, defaultNumberPreset, defaultTextPreset} from './defaultPresets';
 import {getGlobalDefaults} from './globalDefaults';
-import {defaultTextPreset, defaultNumberPreset, defaultDatePreset} from './defaultPresets';
+import {humanize} from './humanize';
 import type {LooseColDef} from './LooseColDef.ts';
 import {normalizeColDef} from './normalizeColDef.ts';
+import type {ColumnBuilder, ColumnOptions} from './types';
 
 export class ColumnBuilderImpl<T> implements ColumnBuilder<T> {
     private cols: ColDef<T>[] = [];
 
-    private pushColumn<K extends keyof T>(
-        field: K,
-        preset: Partial<LooseColDef<T>>,
-        opts?: Partial<LooseColDef<T>>,
-    ) {
+    private pushColumn<K extends keyof T>(field: K, preset: Partial<LooseColDef<T>>, opts?: Partial<LooseColDef<T>>) {
         const headerName = humanize(field as string);
 
         const loose: LooseColDef<T> = {

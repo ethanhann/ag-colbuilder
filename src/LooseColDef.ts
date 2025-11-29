@@ -1,4 +1,4 @@
-import type { ColDef } from 'ag-grid-community';
+import type {ColDef} from 'ag-grid-community';
 
 // AG-grid was looser field-like properties likeColDefField<T>
 export type LooseColDef<T> = Omit<
