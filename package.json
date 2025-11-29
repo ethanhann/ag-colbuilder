@@ -9,6 +9,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "bun x biome check",
+    "format": "bun x biome format --write",
     "build": "tsc -p tsconfig.json",
     "clean": "rm -rf dist",
     "prepare": "bun run build"
