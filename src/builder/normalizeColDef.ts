@@ -4,7 +4,7 @@ import type {LooseColDef} from './LooseColDef';
 const FIELD_KEYS = new Set(['field', 'tooltipField', 'headerTooltip', 'valueGetter', 'valueFormatter']);
 
 export function normalizeColDef<T>(def: LooseColDef<T>): ColDef<T> {
-    const clone: any = {...def};
+    const clone: Record<string, unknown> = {...def};
 
     for (const key of FIELD_KEYS) {
         if (typeof clone[key] === 'string') {

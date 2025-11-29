@@ -1,5 +1,5 @@
-import type {ColDef} from 'ag-grid-community';
-import {defaultDatePreset, defaultNumberPreset, defaultTextPreset} from '../defaultPresets';
+import type {ColDef, ColDefField} from 'ag-grid-community';
+import {type BasePreset, defaultDatePreset, defaultNumberPreset, defaultTextPreset} from '../defaultPresets';
 import {getGlobalDefaults} from '../globalDefaults';
 import {humanize} from '../humanize';
 import type {ColumnBuilder, ColumnOptions} from '../types';
@@ -9,31 +9,31 @@ import {normalizeColDef} from './normalizeColDef';
 export class ColumnBuilderImpl<T> implements ColumnBuilder<T> {
     private cols: ColDef<T>[] = [];
 
-    private pushColumn<K extends keyof T>(field: K, preset: Partial<LooseColDef<T>>, opts?: Partial<LooseColDef<T>>) {
-        const headerName = humanize(field as string);
+    private pushColumn<K extends keyof T & string>(field: K, preset: BasePreset, opts?: Partial<LooseColDef<T>>) {
+        const headerName = humanize(field);
 
-        const loose: LooseColDef<T> = {
+        const loose = {
             ...getGlobalDefaults(),
             ...preset,
-            field: field as any,
+            field: field as unknown as ColDefField<T>,
             headerName,
             ...(opts ?? {}),
-        };
+        } as LooseColDef<T>;
 
         this.cols.push(normalizeColDef(loose));
     }
 
-    text<K extends keyof T>(field: K, opts?: ColumnOptions<T>) {
+    text<K extends keyof T & string>(field: K, opts?: ColumnOptions<T>) {
         this.pushColumn(field, defaultTextPreset, opts);
         return this;
     }
 
-    number<K extends keyof T>(field: K, opts?: ColumnOptions<T>) {
+    number<K extends keyof T & string>(field: K, opts?: ColumnOptions<T>) {
         this.pushColumn(field, defaultNumberPreset, opts);
         return this;
     }
 
-    date<K extends keyof T>(field: K, opts?: ColumnOptions<T>) {
+    date<K extends keyof T & string>(field: K, opts?: ColumnOptions<T>) {
         this.pushColumn(field, defaultDatePreset, opts);
         return this;
     }
