@@ -1,13 +1,11 @@
+import type {ColDef} from 'ag-grid-community';
+
 /**
- * Base preset type containing only non-generic column properties.
+ * Base preset type using AG Grid's ColDef as the foundation.
  * This type is used for default presets that don't need type-specific fields.
+ * Using Partial<ColDef> provides type safety and ensures compatibility with AG Grid.
  */
-export interface BasePreset {
-    sortable?: boolean;
-    filter?: string;
-    resizable?: boolean;
-    type?: string | string[];
-}
+export type BasePreset = Partial<ColDef>;
 
 export const defaultTextPreset: BasePreset = {
     sortable: true,

@@ -6,6 +6,13 @@ import type {ColumnBuilder, ColumnOptions} from '../types';
 import type {LooseColDef} from './LooseColDef';
 import {normalizeColDef} from './normalizeColDef';
 
+/**
+ * Implementation of a builder pattern for creating column definitions.
+ * This class facilitates creating column definitions with predefined presets
+ * or custom options, supporting text, number, and date columns.
+ *
+ * @template T Represents the type of the data to be rendered in the columns.
+ */
 export class ColumnBuilderImpl<T> implements ColumnBuilder<T> {
     private cols: ColDef<T>[] = [];
 

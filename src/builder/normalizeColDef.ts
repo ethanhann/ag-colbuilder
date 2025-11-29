@@ -3,6 +3,10 @@ import type {LooseColDef} from './LooseColDef';
 
 const FIELD_KEYS = new Set(['field', 'tooltipField', 'headerTooltip', 'valueGetter', 'valueFormatter']);
 
+/**
+ * Normalizes a loose column definition to a strict one.
+ * @param def
+ */
 export function normalizeColDef<T>(def: LooseColDef<T>): ColDef<T> {
     const clone: Record<string, unknown> = {...def};
 
