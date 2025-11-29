@@ -7,21 +7,28 @@ import type {ColDef} from 'ag-grid-community';
  */
 export type BasePreset = Partial<ColDef>;
 
-export const defaultTextPreset: BasePreset = {
+export const textPreset: BasePreset = {
     sortable: true,
     filter: 'agTextColumnFilter',
     resizable: true,
 };
 
-export const defaultNumberPreset: BasePreset = {
+export const numberPreset: BasePreset = {
     sortable: true,
     filter: 'agNumberColumnFilter',
     type: 'numericColumn',
     resizable: true,
 };
 
-export const defaultDatePreset: BasePreset = {
+export const datePreset: BasePreset = {
     sortable: true,
     filter: 'agDateColumnFilter',
+    resizable: true,
+};
+
+export const booleanPreset: BasePreset = {
+    sortable: true,
+    filter: 'agSetColumnFilter',
+    cellDataType: 'boolean',
     resizable: true,
 };

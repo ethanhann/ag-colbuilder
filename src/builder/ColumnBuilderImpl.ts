@@ -1,7 +1,7 @@
 import type {ColDef, ColDefField} from 'ag-grid-community';
-import {type BasePreset, defaultDatePreset, defaultNumberPreset, defaultTextPreset} from '../defaultPresets';
 import {getGlobalDefaults} from '../globalDefaults';
 import {humanize} from '../humanize';
+import {type BasePreset, datePreset, numberPreset, textPreset} from '../presets';
 import type {ColumnBuilder, ColumnOptions} from '../types';
 import type {LooseColDef} from './LooseColDef';
 import {normalizeColDef} from './normalizeColDef';
@@ -34,17 +34,17 @@ export class ColumnBuilderImpl<T> implements ColumnBuilder<T> {
     }
 
     text<K extends keyof T & string>(field: K, opts?: ColumnOptions<T>) {
-        this.pushColumn(field, defaultTextPreset, opts);
+        this.pushColumn(field, textPreset, opts);
         return this;
     }
 
     number<K extends keyof T & string>(field: K, opts?: ColumnOptions<T>) {
-        this.pushColumn(field, defaultNumberPreset, opts);
+        this.pushColumn(field, numberPreset, opts);
         return this;
     }
 
     date<K extends keyof T & string>(field: K, opts?: ColumnOptions<T>) {
-        this.pushColumn(field, defaultDatePreset, opts);
+        this.pushColumn(field, datePreset, opts);
         return this;
     }
 
