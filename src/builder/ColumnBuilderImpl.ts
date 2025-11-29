@@ -17,6 +17,9 @@ export class ColumnBuilderImpl<T> implements ColumnBuilder<T> {
     private cols: ColDef<T>[] = [];
 
     private pushColumn<K extends keyof T & string>(field: K, preset: BasePreset, opts?: Partial<LooseColDef<T>>) {
+        if (!field || typeof field !== 'string') {
+            throw new Error('Field name must be a non-empty string');
+        }
         const headerName = humanize(field);
 
         const loose = {
