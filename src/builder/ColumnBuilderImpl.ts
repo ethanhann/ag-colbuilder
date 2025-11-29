@@ -1,10 +1,10 @@
 import type {ColDef} from 'ag-grid-community';
-import {defaultDatePreset, defaultNumberPreset, defaultTextPreset} from '../defaultPresets.ts';
-import {getGlobalDefaults} from '../globalDefaults.ts';
-import {humanize} from '../humanize.ts';
-import type {ColumnBuilder, ColumnOptions} from '../types.ts';
-import type {LooseColDef} from './LooseColDef.ts';
-import {normalizeColDef} from './normalizeColDef.ts';
+import {defaultDatePreset, defaultNumberPreset, defaultTextPreset} from '../defaultPresets';
+import {getGlobalDefaults} from '../globalDefaults';
+import {humanize} from '../humanize';
+import type {ColumnBuilder, ColumnOptions} from '../types';
+import type {LooseColDef} from './LooseColDef';
+import {normalizeColDef} from './normalizeColDef';
 
 export class ColumnBuilderImpl<T> implements ColumnBuilder<T> {
     private cols: ColDef<T>[] = [];

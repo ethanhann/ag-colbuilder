@@ -1,4 +1,4 @@
-import {ColumnBuilderImpl} from './builder/ColumnBuilderImpl.ts';
+import {ColumnBuilderImpl} from './builder/ColumnBuilderImpl';
 
 export * from './globalDefaults';
 export * from './types';

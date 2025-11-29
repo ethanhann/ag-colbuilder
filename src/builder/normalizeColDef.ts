@@ -1,5 +1,5 @@
 import type {ColDef, ColDefField} from 'ag-grid-community';
-import type {LooseColDef} from './LooseColDef.ts';
+import type {LooseColDef} from './LooseColDef';
 
 const FIELD_KEYS = new Set(['field', 'tooltipField', 'headerTooltip', 'valueGetter', 'valueFormatter']);
 
