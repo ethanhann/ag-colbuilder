@@ -1,6 +1,6 @@
 {
-  "name": "ag-colbuilder",
-  "version": "0.1.0",
+  "name": "@ethanhann/ag-colbuilder",
+  "version": "0.4.0",
   "description": "A fluent, strongly typed column definition builder for AG Grid.",
   "license": "MIT",
   "main": "./dist/index.js",
@@ -30,7 +30,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ethanhann/ag-colbuilder.git"
+    "url": "git+https://github.com/ethanhann/ag-colbuilder.git"
   },
   "bugs": {
     "url": "https://github.com/ethanhann/ag-colbuilder/issues"
@@ -47,5 +47,13 @@
   },
   "peerDependencies": {
     "ag-grid-community": ">=34.0.0"
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "keywords": [
+    "AG-Grid",
+    "Builder"
+  ],
+  "author": "Ethan Hann"
 }
