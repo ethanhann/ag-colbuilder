@@ -1,6 +1,6 @@
 {
   "name": "@ethanhann/ag-colbuilder",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "A fluent, strongly typed column definition builder for AG Grid.",
   "license": "MIT",
   "main": "./dist/index.js",

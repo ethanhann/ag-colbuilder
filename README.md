@@ -34,19 +34,19 @@ This package supports `AG Grid 34` and later, including strict typing for field 
 Using bun:
 
 ```sh
-bun add ag-colbuilder
+bun add @ethanhann/ag-colbuilder
 ```
 
 Using npm:
 
 ```sh
-npm install ag-colbuilder
+npm install @ethanhann/ag-colbuilder
 ```
 
 Using yarn:
 
 ```sh
-yarn add ag-colbuilder
+yarn add @ethanhann/ag-colbuilder
 ```
 
 ## Getting Started
